@@ -4,12 +4,34 @@
 
 body {
   background-color: lightgrey;
-  /* Use a system font, if none are available use an available sans-sarif font */
   font-family: system-ui, sans-serif;
-  /* Ensures full height compatibility across devices */
   min-height: 100dvh;
   margin: 0;
 }
 h1 {
+  text-align: center;
+}
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+#board {
+  width: 450px;
+  height: 450px;
+  border: 3px solid black;
   text-align: center;
 }
