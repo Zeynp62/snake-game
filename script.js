@@ -48,12 +48,16 @@ const generateSnake = () => {
   snake = document.getElementById(snakeIndex)
   console.log(snake)
 }
-const calculateScore = () => {}
+const calculateScore = () => {
+  scoreEl.textContent = `Score: ${score} `
+}
 const movingSnake = () => {}
 /*----------------------------- Event Listeners -----------------------------*/
 window.onload = () => {
   init()
 }
+init()
 generateMap()
 placeFood()
 generateSnake()
+calculateScore()
