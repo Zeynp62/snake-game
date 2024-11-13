@@ -17,13 +17,12 @@ const init = () => {
   winState = false
   score = 0
   snake = []
-  food = ['0'] // placed in the same place when start
+  food // placed in the same place when start
   render()
 }
 const generateMap = () => {
   for (let i = 0; i < 64; i++) {
     const newDivs = document.createElement('div')
-    console.log(newDivs)
     newDivs.classList.add('sqr')
     newDivs.id = `${i}`
     boardEl.appendChild(newDivs)
@@ -31,7 +30,10 @@ const generateMap = () => {
 }
 
 const render = () => {}
-const placeFood = () => {}
+const placeFood = () => {
+  foodIndex = Math.floor(Math.random() * (63 - 0 + 1) + 0)
+  document.getElementById(foodIndex).style.backgroundColor = 'red'
+}
 const updateMessage = () => {}
 const checkGameOver = () => {}
 const growSnake = () => {}
@@ -42,3 +44,4 @@ window.onload = () => {
   init()
 }
 generateMap()
+placeFood()
