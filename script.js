@@ -9,5 +9,12 @@ let snake
 /*------------------------ Cached Element References ------------------------*/
 
 /*-------------------------------- Functions --------------------------------*/
-
+const init = () => {}
+const render = () => {}
+const placeFood = () => {}
+const updateMessage = () => {}
+const checkGameOver = () => {}
+const growSnake = () => {}
+const calculateScore = () => {}
+const movingSnake = () => {}
 /*----------------------------- Event Listeners -----------------------------*/
