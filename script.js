@@ -3,7 +3,7 @@
 /*-------------------------------- Variables --------------------------------*/
 let board
 let food
-let winState
+let gameOver
 let score
 let snake
 /*------------------------ Cached Element References ------------------------*/
@@ -16,8 +16,8 @@ const init = () => {
   board = []
   winState = false
   score = 0
-  snake = []
-  food // placed in the same place when start
+  snake = [' ']
+  food
   render()
 }
 const generateMap = () => {
@@ -34,9 +34,20 @@ const placeFood = () => {
   foodIndex = Math.floor(Math.random() * (63 - 0 + 1) + 0)
   document.getElementById(foodIndex).style.backgroundColor = 'red'
 }
-const updateMessage = () => {}
+const updateMessage = () => {
+  // if (Event) {
+  //   messageEl.textContent = `Game started`
+  // } else if (gameOver) {
+  //   messageEl.textContent = `Game Over`
+  // }
+}
 const checkGameOver = () => {}
-const growSnake = () => {}
+const generateSnake = () => {
+  snakeIndex = Math.floor(Math.random() * (63 - 0 + 1) + 0)
+  document.getElementById(snakeIndex).style.backgroundColor = 'green'
+  snake = document.getElementById(snakeIndex)
+  console.log(snake)
+}
 const calculateScore = () => {}
 const movingSnake = () => {}
 /*----------------------------- Event Listeners -----------------------------*/
@@ -45,3 +56,4 @@ window.onload = () => {
 }
 generateMap()
 placeFood()
+generateSnake()
