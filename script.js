@@ -21,18 +21,23 @@ const init = () => {
   render()
 }
 const generateMap = () => {
-  for (let i = 0; i < 64; i++) {
-    const newDivs = document.createElement('div')
-    newDivs.classList.add('sqr')
-    newDivs.id = `${i}`
-    boardEl.appendChild(newDivs)
+  for (let i = 0; i < 8; i++) {
+    board[i] = []
+    for (let j = 0; j < 8; j++) {
+      const newDivs = document.createElement('div')
+      newDivs.classList.add('sqr')
+      newDivs.id = `${i}-${j}`
+      boardEl.appendChild(newDivs)
+    }
   }
 }
 
 const render = () => {}
 const placeFood = () => {
-  foodIndex = Math.floor(Math.random() * (63 - 0 + 1) + 0)
-  document.getElementById(foodIndex).style.backgroundColor = 'red'
+  foodIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  foodIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor =
+    'red'
 }
 const updateMessage = () => {
   // if (Event) {
@@ -43,9 +48,12 @@ const updateMessage = () => {
 }
 const checkGameOver = () => {}
 const generateSnake = () => {
-  snakeIndex = Math.floor(Math.random() * (63 - 0 + 1) + 0)
-  document.getElementById(snakeIndex).style.backgroundColor = 'green'
-  snake = document.getElementById(snakeIndex)
+  snakeIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  snakeIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  document.getElementById(
+    `${snakeIndexI}-${snakeIndexJ}`
+  ).style.backgroundColor = 'green'
+  snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
   console.log(snake)
 }
 const calculateScore = () => {
