@@ -6,6 +6,8 @@ let food
 let gameOver
 let score
 let snake
+let gameStart
+let direction
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.querySelector('#message')
 const scoreEl = document.querySelector('#score')
@@ -18,6 +20,8 @@ const init = () => {
   score = 0
   snake = [' ']
   food
+  gameStart = false
+  direction = 'right'
   render()
 }
 const generateMap = () => {
@@ -28,8 +32,10 @@ const generateMap = () => {
       newDivs.classList.add('sqr')
       newDivs.id = `${i}-${j}`
       boardEl.appendChild(newDivs)
+      board[i][j] = newDivs
     }
   }
+  //console.log(board)// displaying the board in console
 }
 
 const render = () => {}
@@ -54,12 +60,55 @@ const generateSnake = () => {
     `${snakeIndexI}-${snakeIndexJ}`
   ).style.backgroundColor = 'green'
   snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
-  console.log(snake)
 }
 const calculateScore = () => {
   scoreEl.textContent = `Score: ${score} `
 }
 const movingSnake = () => {}
+//-------------------------------------------------------------------------------
+function handleKeyPress(event) {
+  if (!event) return
+  //   if (
+  //     (!gameStarted && event.code === 'Space') ||
+  //     (!gameStarted && event.key === ' ')
+  //   ) {
+  //     startGame()
+  //   } else {
+  switch (event.key) {
+    case 'ArrowUp':
+      if (direction !== 'down') {
+        --snakeIndexI
+        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+        direction = 'up'
+        break
+      }
+    case 'ArrowDown':
+      if (direction !== 'up') {
+        ++snakeIndexI
+        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+        direction = 'down'
+        break
+      }
+    case 'ArrowLeft':
+      if (direction !== 'right') {
+        --snakeIndexJ
+        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+        direction = 'left'
+        break
+      }
+    case 'ArrowRight':
+      if (direction !== 'left') {
+        ++snakeIndexJ
+        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+        direction = 'right'
+        break
+      }
+
+      console.log(snakeIndexI)
+  }
+}
+// }
+
 /*----------------------------- Event Listeners -----------------------------*/
 window.onload = () => {
   init()
@@ -69,3 +118,5 @@ generateMap()
 placeFood()
 generateSnake()
 calculateScore()
+handleKeyPress()
+document.addEventListener('keydown', handleKeyPress)

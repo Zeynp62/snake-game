@@ -88,4 +88,17 @@ board[i][j] = ' ' // Initialize each cell with a blank space
 }
 }
 
-console.log(board)
+## console.log(board)
+
+function keyDownHandler(event) {
+if (event.code === "ArrowRight") {
+rightPressed = true;
+} else if (event.code === "ArrowLeft") {
+leftPressed = true;
+}
+if (event.code === "ArrowDown") {
+downPressed = true;
+} else if (event.code === "ArrowUp") {
+upPressed = true;
+}
+}
