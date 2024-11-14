@@ -8,6 +8,10 @@ let score
 let snake
 let gameStart
 let direction
+let rightPressed
+let leftPressed
+let downPressed
+let upPressed
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.querySelector('#message')
 const scoreEl = document.querySelector('#score')
@@ -21,7 +25,7 @@ const init = () => {
   snake = [' ']
   food
   gameStart = false
-  direction = 'right'
+
   render()
 }
 const generateMap = () => {
@@ -56,10 +60,11 @@ const checkGameOver = () => {}
 const generateSnake = () => {
   snakeIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
   snakeIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+
+  snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
   document.getElementById(
     `${snakeIndexI}-${snakeIndexJ}`
   ).style.backgroundColor = 'green'
-  snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
 }
 const calculateScore = () => {
   scoreEl.textContent = `Score: ${score} `
@@ -68,55 +73,30 @@ const movingSnake = () => {}
 //-------------------------------------------------------------------------------
 function handleKeyPress(event) {
   if (!event) return
-  //   if (
-  //     (!gameStarted && event.code === 'Space') ||
-  //     (!gameStarted && event.key === ' ')
-  //   ) {
-  //     startGame()
-  //   } else {
-  switch (event.key) {
-    case 'ArrowUp':
-      if (direction !== 'down') {
-        --snakeIndexI
-        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
-        direction = 'up'
-        break
-      }
-    case 'ArrowDown':
-      if (direction !== 'up') {
-        ++snakeIndexI
-        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
-        direction = 'down'
-        break
-      }
-    case 'ArrowLeft':
-      if (direction !== 'right') {
-        --snakeIndexJ
-        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
-        direction = 'left'
-        break
-      }
-    case 'ArrowRight':
-      if (direction !== 'left') {
-        ++snakeIndexJ
-        snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
-        direction = 'right'
-        break
-      }
 
-      console.log(snakeIndexI)
+  if (event.code === 'ArrowRight') {
+    rightPressed = true
+    console.log('right')
+  } else if (event.code === 'ArrowLeft') {
+    leftPressed = true
+    console.log('leftPressed')
+  }
+  if (event.code === 'ArrowDown') {
+    downPressed = true
+    console.log('downPressed')
+  } else if (event.code === 'ArrowUp') {
+    upPressed = true
+    console.log('upPressed')
   }
 }
-// }
-
 /*----------------------------- Event Listeners -----------------------------*/
 window.onload = () => {
   init()
+  generateMap()
+  placeFood()
+  generateSnake()
+  calculateScore()
+  handleKeyPress()
 }
-init()
-generateMap()
-placeFood()
-generateSnake()
-calculateScore()
-handleKeyPress()
+
 document.addEventListener('keydown', handleKeyPress)

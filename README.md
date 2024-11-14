@@ -102,3 +102,49 @@ downPressed = true;
 upPressed = true;
 }
 }
+
+---
+
+function handleKeyPress(event) {
+if (!event) return
+// if (
+// (!gameStarted && event.code === 'Space') ||
+// (!gameStarted && event.key === ' ')
+// ) {
+// startGame()
+// } else {
+switch (event.key) {
+case 'ArrowUp':
+if (direction !== 'down') {
+--snakeIndexI
+snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+direction = 'up'
+break
+}
+case 'ArrowDown':
+if (direction !== 'up') {
+++snakeIndexI
+snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+direction = 'down'
+break
+}
+case 'ArrowLeft':
+if (direction !== 'right') {
+--snakeIndexJ
+snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+direction = 'left'
+break
+}
+case 'ArrowRight':
+if (direction !== 'left') {
+++snakeIndexJ
+snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+direction = 'right'
+break
+}
+
+      console.log(snakeIndexI)
+
+}
+}
+// }
