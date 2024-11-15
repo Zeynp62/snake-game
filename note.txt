@@ -1,0 +1,114 @@
+/*-------------------------------- Constants --------------------------------*/
+
+/*-------------------------------- Variables --------------------------------*/
+let board
+let food
+let gameOver
+let score
+let snake
+let gameStart
+let direction
+let rightPressed
+let leftPressed
+let downPressed
+let upPressed
+/*------------------------ Cached Element References ------------------------*/
+const messageEl = document.querySelector('#message')
+const scoreEl = document.querySelector('#score')
+const reserBtn = document.querySelector('#reset')
+const boardEl = document.querySelector('#board')
+/*-------------------------------- Functions --------------------------------*/
+const init = () => {
+  board = []
+  winState = false
+  score = 0
+  snake = [' ']
+  food
+  gameStart = false
+
+  render()
+}
+const generateMap = () => {
+  for (let i = 0; i < 8; i++) {
+    board[i] = []
+    for (let j = 0; j < 8; j++) {
+      const newDivs = document.createElement('div')
+      newDivs.classList.add('sqr')
+      newDivs.id = `${i}-${j}`
+      boardEl.appendChild(newDivs)
+      board[i][j] = newDivs
+    }
+  }
+  //console.log(board)// displaying the board in console
+}
+
+const render = () => {}
+const placeFood = () => {
+  foodIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  foodIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor =
+    'red'
+}
+const updateMessage = () => {
+  // if (Event) {
+  //   messageEl.textContent = `Game started`
+  // } else if (gameOver) {
+  //   messageEl.textContent = `Game Over`
+  // }
+}
+const checkGameOver = () => {}
+const generateSnake = () => {
+  snakeIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+  snakeIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+
+  const snake = document.createElement('div')
+  snake.id = `${snakeIndexI}-${snakeIndexJ}`
+  snake.className = 'snakeClass'
+  snake.style.gridRowStart = snakeIndexI + 1
+  snake.style.gridColumnStart = snakeIndexJ + 1
+  newDivs.appendChild(snake)
+
+  // snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+  // // document.getElementById(
+  // //   `${snakeIndexI}-${snakeIndexJ}`
+  // // ).style.backgroundColor = 'green'
+  // snake.className = 'snakec'
+}
+const calculateScore = () => {
+  scoreEl.textContent = `Score: ${score} `
+}
+const movingSnake = () => {}
+//-------------------------------------------------------------------------------
+function handleKeyPress(event) {
+  if (!event) return
+
+  if (event.code === 'ArrowRight') {
+    rightPressed = true
+    snakeIndexJ++
+    snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
+    console.log(snake)
+
+    console.log('right')
+  } else if (event.code === 'ArrowLeft') {
+    leftPressed = true
+    console.log('leftPressed')
+  }
+  if (event.code === 'ArrowDown') {
+    downPressed = true
+    console.log('downPressed')
+  } else if (event.code === 'ArrowUp') {
+    upPressed = true
+    console.log('upPressed')
+  }
+}
+/*----------------------------- Event Listeners -----------------------------*/
+window.onload = () => {
+  init()
+  generateMap()
+  placeFood()
+  generateSnake()
+  calculateScore()
+  handleKeyPress()
+}
+
+document.addEventListener('keydown', handleKeyPress)

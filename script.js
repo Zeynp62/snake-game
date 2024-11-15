@@ -1,5 +1,3 @@
-/*-------------------------------- Constants --------------------------------*/
-
 /*-------------------------------- Variables --------------------------------*/
 let board
 let food
@@ -8,26 +6,25 @@ let score
 let snake
 let gameStart
 let direction
-let rightPressed
-let leftPressed
-let downPressed
-let upPressed
 /*------------------------ Cached Element References ------------------------*/
-const messageEl = document.querySelector('#message')
+const boardEl = document.querySelector('#board')
 const scoreEl = document.querySelector('#score')
 const reserBtn = document.querySelector('#reset')
-const boardEl = document.querySelector('#board')
+const messageEl = document.querySelector('#message')
+
 /*-------------------------------- Functions --------------------------------*/
 const init = () => {
   board = []
-  winState = false
+  gameOver = false
   score = 0
-  snake = [' ']
-  food
-  gameStart = false
-
+  direction = 'right'
+  generateMap()
+  generateSnake()
+  generateFood()
   render()
+  calculateScore()
 }
+
 const generateMap = () => {
   for (let i = 0; i < 8; i++) {
     board[i] = []
@@ -39,15 +36,47 @@ const generateMap = () => {
       board[i][j] = newDivs
     }
   }
-  //console.log(board)// displaying the board in console
+}
+const generateSnake = () => {
+  let i = Math.floor(Math.random() * 8)
+  let j = Math.floor(Math.random() * 8)
+  snake = [{ x: i, y: j }]
+}
+const render = () => {
+  document.querySelectorAll('.snakeClass').forEach((sqr) => {
+    sqr.classList.remove('snakeClass')
+  })
+
+  snake.forEach((part) => {
+    const snakePart = document.getElementById(`${part.x}-${part.y}`)
+    snakePart.classList.add('snakeClass')
+  })
 }
 
-const render = () => {}
-const placeFood = () => {
-  foodIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
-  foodIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
+const generateFood = () => {
+  const foodIndexI = Math.floor(Math.random() * 8)
+  const foodIndexJ = Math.floor(Math.random() * 8)
+  food = { x: foodIndexI, y: foodIndexJ }
   document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor =
     'red'
+}
+
+const calculateScore = () => {
+  scoreEl.textContent = `Score: ${score}`
+}
+
+const moveSnake = () => {
+  const head = { ...snake[0] }
+
+  if (direction === 'right') head.y++
+  else if (direction === 'left') head.y--
+  else if (direction === 'down') head.x++
+  else if (direction === 'up') head.x--
+
+  snake.unshift(head)
+  snake.pop()
+
+  render()
 }
 const updateMessage = () => {
   // if (Event) {
@@ -57,46 +86,17 @@ const updateMessage = () => {
   // }
 }
 const checkGameOver = () => {}
-const generateSnake = () => {
-  snakeIndexI = Math.floor(Math.random() * (7 - 0 + 1) + 0)
-  snakeIndexJ = Math.floor(Math.random() * (7 - 0 + 1) + 0)
 
-  snake = document.getElementById(`${snakeIndexI}-${snakeIndexJ}`)
-  document.getElementById(
-    `${snakeIndexI}-${snakeIndexJ}`
-  ).style.backgroundColor = 'green'
-}
-const calculateScore = () => {
-  scoreEl.textContent = `Score: ${score} `
-}
-const movingSnake = () => {}
-//-------------------------------------------------------------------------------
 function handleKeyPress(event) {
-  if (!event) return
-
-  if (event.code === 'ArrowRight') {
-    rightPressed = true
-    console.log('right')
-  } else if (event.code === 'ArrowLeft') {
-    leftPressed = true
-    console.log('leftPressed')
-  }
-  if (event.code === 'ArrowDown') {
-    downPressed = true
-    console.log('downPressed')
-  } else if (event.code === 'ArrowUp') {
-    upPressed = true
-    console.log('upPressed')
-  }
+  if (event.code === 'ArrowRight') direction = 'right'
+  if (event.code === 'ArrowLeft') direction = 'left'
+  if (event.code === 'ArrowDown') direction = 'down'
+  if (event.code === 'ArrowUp') direction = 'up'
 }
 /*----------------------------- Event Listeners -----------------------------*/
+document.addEventListener('keydown', handleKeyPress)
+reserBtn.addEventListener('click', init)
 window.onload = () => {
   init()
-  generateMap()
-  placeFood()
-  generateSnake()
-  calculateScore()
-  handleKeyPress()
+  setInterval(moveSnake, 300)
 }
-
-document.addEventListener('keydown', handleKeyPress)
