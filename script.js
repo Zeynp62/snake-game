@@ -103,17 +103,13 @@ const moveSnake = () => {
   const head = { ...snake[0] }
 
   if (direction === 'right') {
-    y++
-    head.y
+    head.y++
   } else if (direction === 'left') {
-    y--
-    head.y
+    head.y--
   } else if (direction === 'down') {
-    x++
-    head.x
+    head.x++
   } else if (direction === 'up') {
-    x--
-    head.x
+    head.x--
   }
 
   snake.unshift(head)
