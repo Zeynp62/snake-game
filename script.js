@@ -1,10 +1,44 @@
+/*-------------------------------- Constants --------------------------------*/
+const gameOverCombos = [
+  '0-0',
+  '0-1',
+  '0-2',
+  '0-3',
+  '0-4',
+  '0-5',
+  '0-6',
+  '0-7',
+  '0-8',
+  '1-0',
+  '2-0',
+  '3-0',
+  '4-0',
+  '5-0',
+  '6-0',
+  '7-0',
+  '8-0',
+  '8-2',
+  '8-3',
+  '8-4',
+  '8-5',
+  '8-6',
+  '8-7',
+  '8-8',
+  '1-8',
+  '2-8',
+  '3-8',
+  '4-8',
+  '5-8',
+  '6-8',
+  '7-8'
+]
 /*-------------------------------- Variables --------------------------------*/
 let board
 let food
 let gameOver
 let score
 let snake
-let gameStart
+let gameStart = false
 let direction
 /*------------------------ Cached Element References ------------------------*/
 const boardEl = document.querySelector('#board')
@@ -24,11 +58,10 @@ const init = () => {
   render()
   calculateScore()
 }
-
 const generateMap = () => {
-  for (let i = 0; i < 8; i++) {
+  for (let i = 0; i < 9; i++) {
     board[i] = []
-    for (let j = 0; j < 8; j++) {
+    for (let j = 0; j < 9; j++) {
       const newDivs = document.createElement('div')
       newDivs.classList.add('sqr')
       newDivs.id = `${i}-${j}`
@@ -38,9 +71,10 @@ const generateMap = () => {
   }
 }
 const generateSnake = () => {
-  let i = Math.floor(Math.random() * 8)
-  let j = Math.floor(Math.random() * 8)
-  snake = [{ x: i, y: j }]
+  let snakeIndexI = Math.floor(Math.random() * (8 - 0 + 1) + 0)
+  let snakeIndexJ = Math.floor(Math.random() * (8 - 0 + 1) + 0)
+
+  snake = [{ x: snakeIndexI, y: snakeIndexJ }]
 }
 const render = () => {
   document.querySelectorAll('.snakeClass').forEach((sqr) => {
@@ -68,10 +102,19 @@ const calculateScore = () => {
 const moveSnake = () => {
   const head = { ...snake[0] }
 
-  if (direction === 'right') head.y++
-  else if (direction === 'left') head.y--
-  else if (direction === 'down') head.x++
-  else if (direction === 'up') head.x--
+  if (direction === 'right') {
+    y++
+    head.y
+  } else if (direction === 'left') {
+    y--
+    head.y
+  } else if (direction === 'down') {
+    x++
+    head.x
+  } else if (direction === 'up') {
+    x--
+    head.x
+  }
 
   snake.unshift(head)
   snake.pop()
@@ -79,13 +122,26 @@ const moveSnake = () => {
   render()
 }
 const updateMessage = () => {
-  // if (Event) {
-  //   messageEl.textContent = `Game started`
-  // } else if (gameOver) {
-  //   messageEl.textContent = `Game Over`
-  // }
+  if (gameOver) {
+    messageEl.textContent = 'Game Over!'
+  } else if (!gameStart) {
+    messageEl.textContent = 'Press any arrow key to start!'
+  } else {
+    messageEl.textContent = 'Game in progress...'
+  }
 }
-const checkGameOver = () => {}
+const checkGameOver = () => {
+  const head = snake[0]
+  for (let i = 0; i < length.gameOverCombos; i++) {
+    if (head.id === gameOverCombos[i]) {
+      gameOver = true
+      updateMessage()
+      clearInterval(gameLoop)
+      return
+    }
+  }
+  //check if snake eats the tail
+}
 
 function handleKeyPress(event) {
   if (event.code === 'ArrowRight') direction = 'right'
