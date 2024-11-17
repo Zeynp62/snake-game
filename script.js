@@ -55,8 +55,8 @@ const init = () => {
   generateMap()
   generateSnake()
   generateFood()
+  updateMessage()
   render()
-  calculateScore()
 }
 const generateMap = () => {
   for (let i = 0; i < 9; i++) {
@@ -71,8 +71,13 @@ const generateMap = () => {
   }
 }
 const generateSnake = () => {
-  let snakeIndexI = Math.floor(Math.random() * (8 - 0 + 1) + 0)
-  let snakeIndexJ = Math.floor(Math.random() * (8 - 0 + 1) + 0)
+  let snakeIndexI, snakeIndexJ
+  let snakePosition
+  do {
+    snakeIndexI = Math.floor(Math.random() * 9)
+    snakeIndexJ = Math.floor(Math.random() * 9)
+    snakePosition = `${snakeIndexI}-${snakeIndexJ}`
+  } while (gameOverCombos.includes(snakePosition))
 
   snake = [{ x: snakeIndexI, y: snakeIndexJ }]
 }
@@ -85,11 +90,19 @@ const render = () => {
     const snakePart = document.getElementById(`${part.x}-${part.y}`)
     snakePart.classList.add('snakeClass')
   })
+  checkGameOver()
 }
 
 const generateFood = () => {
-  const foodIndexI = Math.floor(Math.random() * 8)
-  const foodIndexJ = Math.floor(Math.random() * 8)
+  let foodIndexI, foodIndexJ
+  let foodPosition
+
+  do {
+    foodIndexI = Math.floor(Math.random() * 9)
+    foodIndexJ = Math.floor(Math.random() * 9)
+    foodPosition = `${foodIndexI}-${foodIndexJ}`
+  } while (gameOverCombos.includes(foodPosition))
+
   food = { x: foodIndexI, y: foodIndexJ }
   document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor =
     'red'
@@ -97,6 +110,14 @@ const generateFood = () => {
 
 const calculateScore = () => {
   scoreEl.textContent = `Score: ${score}`
+  const head = snake[0]
+
+  if (head.x === food.x && head.y === food.y) {
+    score++
+    scoreEl.textContent = `Score: ${score}`
+    console.log(score)
+    food = generateFood()
+  }
 }
 
 const moveSnake = () => {
@@ -114,6 +135,7 @@ const moveSnake = () => {
 
   snake.unshift(head)
   snake.pop()
+  calculateScore()
 
   render()
 }
@@ -128,12 +150,13 @@ const updateMessage = () => {
 }
 const checkGameOver = () => {
   const head = snake[0]
-  for (let i = 0; i < length.gameOverCombos; i++) {
-    if (head.id === gameOverCombos[i]) {
+  const headPosition = `${head.x}-${head.y}`
+  for (let i = 0; i < gameOverCombos.length; i++) {
+    if (gameOverCombos.includes(headPosition)) {
       gameOver = true
       updateMessage()
-      clearInterval(gameLoop)
-      return
+      // clearInterval(gameLoop)
+      // return
     }
   }
   //check if snake eats the tail
@@ -150,5 +173,5 @@ document.addEventListener('keydown', handleKeyPress)
 reserBtn.addEventListener('click', init)
 window.onload = () => {
   init()
-  setInterval(moveSnake, 300)
+  setInterval(moveSnake, 400)
 }
