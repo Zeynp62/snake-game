@@ -40,6 +40,7 @@ let score
 let snake
 let gameStart = false
 let direction
+let lastDirection
 /*------------------------ Cached Element References ------------------------*/
 const boardEl = document.querySelector('#board')
 const scoreEl = document.querySelector('#score')
@@ -52,6 +53,7 @@ const init = () => {
   gameOver = false
   score = 0
   direction = 'right'
+  lastDirection = 'right'
   generateMap()
   generateSnake()
   generateFood()
@@ -128,12 +130,18 @@ const moveSnake = () => {
 
   if (direction === 'right') {
     head.y++
+    lastDirection = 'right'
   } else if (direction === 'left') {
     head.y--
+    lastDirection = 'left'
   } else if (direction === 'down') {
     head.x++
+    lastDirection = 'down'
   } else if (direction === 'up') {
     head.x--
+    lastDirection = 'up'
+  } else {
+    direction = direction
   }
 
   snake.unshift(head)
@@ -166,10 +174,11 @@ const checkGameOver = () => {
 }
 
 function handleKeyPress(event) {
-  if (event.code === 'ArrowRight') direction = 'right'
-  if (event.code === 'ArrowLeft') direction = 'left'
-  if (event.code === 'ArrowDown') direction = 'down'
-  if (event.code === 'ArrowUp') direction = 'up'
+  if (event.code === 'ArrowRight' && lastDirection != 'left')
+    direction = 'right'
+  if (event.code === 'ArrowLeft' && lastDirection != 'right') direction = 'left'
+  if (event.code === 'ArrowDown' && lastDirection != 'up') direction = 'down'
+  if (event.code === 'ArrowUp' && lastDirection != 'down') direction = 'up'
 }
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
