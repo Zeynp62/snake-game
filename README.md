@@ -148,3 +148,17 @@ break
 }
 }
 // }
+
+---
+
+// const calculateScore = () => {
+// scoreEl.textContent = `Score: ${score}`
+// const head = snake[0]
+
+// if (head.x === food.x && head.y === food.y) {
+// score++
+// scoreEl.textContent = `Score: ${score}`
+// console.log(score)
+// food = generateFood()
+// }
+// }

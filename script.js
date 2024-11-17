@@ -116,10 +116,13 @@ const calculateScore = () => {
     score++
     scoreEl.textContent = `Score: ${score}`
     console.log(score)
-    food = generateFood()
+    const newHead = { x: head.x, y: head.y }
+    snake.unshift(newHead)
+    document.getElementById(`${food.x}-${food.y}`).style.backgroundColor = ''
+
+    generateFood()
   }
 }
-
 const moveSnake = () => {
   const head = { ...snake[0] }
 
@@ -155,8 +158,8 @@ const checkGameOver = () => {
     if (gameOverCombos.includes(headPosition)) {
       gameOver = true
       updateMessage()
-      // clearInterval(gameLoop)
-      // return
+      clearInterval(gameLoop)
+      return
     }
   }
   //check if snake eats the tail
