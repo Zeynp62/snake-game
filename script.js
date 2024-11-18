@@ -117,11 +117,9 @@ const calculateScore = () => {
   if (head.x === food.x && head.y === food.y) {
     score++
     scoreEl.textContent = `Score: ${score}`
-    console.log(score)
     const newHead = { x: head.x, y: head.y }
     snake.unshift(newHead)
     document.getElementById(`${food.x}-${food.y}`).style.backgroundColor = ''
-
     generateFood()
   }
 }
@@ -166,8 +164,14 @@ const checkGameOver = () => {
     if (gameOverCombos.includes(headPosition)) {
       gameOver = true
       updateMessage()
-      clearInterval(gameLoop)
-      return
+      //     clearInterval(gameLoop)
+      //     return
+    }
+  }
+  for (let i = 1; i < snake.length; i++) {
+    if (head.x === snake[i].x && head.y === snake[i].y && i !== 1) {
+      gameOver = true
+      updateMessage()
     }
   }
   //check if snake eats the tail
