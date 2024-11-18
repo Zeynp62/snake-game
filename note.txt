@@ -112,3 +112,25 @@ window.onload = () => {
 }
 
 document.addEventListener('keydown', handleKeyPress)
+const generateFood = () => {
+  let foodIndexI, foodIndexJ
+  let foodPosition
+
+  do {
+    foodIndexI = Math.floor(Math.random() * 9)
+    foodIndexJ = Math.floor(Math.random() * 9)
+    foodPosition = `${foodIndexI}-${foodIndexJ}`
+  } while (gameOverCombos.includes(foodPosition) || isFoodOnSnake(foodIndexI, foodIndexJ))
+
+  food = { x: foodIndexI, y: foodIndexJ }
+  document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor = 'red'
+}
+
+const isFoodOnSnake = (x, y) => {
+  for (let i = 0; i < snake.length; i++) {
+    if (snake[i].x === x && snake[i].y === y) {
+      return true;
+    }
+  }
+  return false;
+}

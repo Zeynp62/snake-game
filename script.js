@@ -38,7 +38,7 @@ let food
 let gameOver
 let score
 let snake
-let gameStart = false
+let gameStart
 let direction
 let lastDirection
 /*------------------------ Cached Element References ------------------------*/
@@ -51,6 +51,7 @@ const messageEl = document.querySelector('#message')
 const init = () => {
   board = []
   gameOver = false
+  gameStart = true
   score = 0
   direction = 'right'
   lastDirection = 'right'
@@ -103,7 +104,10 @@ const generateFood = () => {
     foodIndexI = Math.floor(Math.random() * 9)
     foodIndexJ = Math.floor(Math.random() * 9)
     foodPosition = `${foodIndexI}-${foodIndexJ}`
-  } while (gameOverCombos.includes(foodPosition))
+  } while (
+    gameOverCombos.includes(foodPosition) ||
+    isFoodOnSnake(foodIndexI, foodIndexJ)
+  )
 
   food = { x: foodIndexI, y: foodIndexJ }
   document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor =
@@ -174,7 +178,14 @@ const checkGameOver = () => {
       updateMessage()
     }
   }
-  //check if snake eats the tail
+}
+const isFoodOnSnake = (x, y) => {
+  for (let i = 0; i < snake.length; i++) {
+    if (snake[i].x === x && snake[i].y === y) {
+      return true
+    }
+  }
+  return false
 }
 
 function handleKeyPress(event) {
