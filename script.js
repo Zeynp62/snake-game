@@ -30,7 +30,8 @@ const gameOverCombos = [
   '4-8',
   '5-8',
   '6-8',
-  '7-8'
+  '7-8',
+  '8-1'
 ]
 /*-------------------------------- Variables --------------------------------*/
 let board
@@ -53,8 +54,8 @@ const init = () => {
   gameOver = false
   gameStart = true
   score = 0
-  direction = 'right'
-  lastDirection = 'right'
+  direction = 'up'
+  lastDirection = ''
   generateMap()
   generateSnake()
   generateFood()
@@ -198,6 +199,7 @@ function handleKeyPress(event) {
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
 reserBtn.addEventListener('click', init)
+
 window.onload = () => {
   init()
   setInterval(moveSnake, 400)
