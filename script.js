@@ -58,6 +58,7 @@ const reserBtn = document.querySelector('#reset')
 const messageEl = document.querySelector('#message')
 
 /*-------------------------------- Functions --------------------------------*/
+
 const init = () => {
   board = []
   gameOver = false
@@ -201,6 +202,13 @@ const boardFrame = () => {
     document.getElementById(gameOverCombos[i]).style.color = 'blue'
   }
 }
+// const music = () => {
+const sound = new Howl({
+  src: ['https://assets.codepen.io/21542/howler-demo-bg-music.mp3'],
+  loop: true,
+  volume: 0.5
+})
+// }
 const handleKeyPress = (event) => {
   if (event.code === 'ArrowRight' && lastDirection != 'left')
     direction = 'right'
@@ -211,8 +219,15 @@ const handleKeyPress = (event) => {
 /*----------------------------- Event Listeners -----------------------------*/
 document.addEventListener('keydown', handleKeyPress)
 reserBtn.addEventListener('click', init)
-
+document.getElementById('music').addEventListener('click', () => {
+  if (sound.playing()) {
+    sound.pause()
+  } else {
+    sound.play()
+  }
+})
 window.onload = () => {
   init()
+  sound.play()
   setInterval(moveSnake, 400)
 }

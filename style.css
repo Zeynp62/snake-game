@@ -122,3 +122,25 @@ a:active {
 [id='10-10'] {
   background-color: #fac63885;
 }
+
+button {
+  cursor: pointer;
+  background-color: #47007a;
+  color: #ffffff;
+  margin: 10px;
+  font-size: 20px;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+button:hover {
+  background-color: #300052;
+  color: white;
+}
+button:active {
+  background-color: #300052;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  transform: translateY(4px);
+}
