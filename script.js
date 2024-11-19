@@ -9,6 +9,8 @@ const gameOverCombos = [
   '0-6',
   '0-7',
   '0-8',
+  '0-9',
+  '0-10',
   '1-0',
   '2-0',
   '3-0',
@@ -17,21 +19,28 @@ const gameOverCombos = [
   '6-0',
   '7-0',
   '8-0',
-  '8-2',
-  '8-3',
-  '8-4',
-  '8-5',
-  '8-6',
-  '8-7',
-  '8-8',
-  '1-8',
-  '2-8',
-  '3-8',
-  '4-8',
-  '5-8',
-  '6-8',
-  '7-8',
-  '8-1'
+  '9-0',
+  '10-0',
+  '10-1',
+  '10-2',
+  '10-3',
+  '10-4',
+  '10-5',
+  '10-6',
+  '10-7',
+  '10-8',
+  '10-9',
+  '10-10',
+  '1-10',
+  '2-10',
+  '3-10',
+  '4-10',
+  '5-10',
+  '6-10',
+  '7-10',
+  '8-10',
+  '9-10',
+  '10-10'
 ]
 /*-------------------------------- Variables --------------------------------*/
 let board
@@ -57,15 +66,16 @@ const init = () => {
   direction = 'up'
   lastDirection = ''
   generateMap()
+  boardFrame()
   generateSnake()
   generateFood()
   updateMessage()
   render()
 }
 const generateMap = () => {
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 11; i++) {
     board[i] = []
-    for (let j = 0; j < 9; j++) {
+    for (let j = 0; j < 11; j++) {
       const newDivs = document.createElement('div')
       newDivs.classList.add('sqr')
       newDivs.id = `${i}-${j}`
@@ -112,7 +122,7 @@ const generateFood = () => {
 
   food = { x: foodIndexI, y: foodIndexJ }
   document.getElementById(`${foodIndexI}-${foodIndexJ}`).style.backgroundColor =
-    'red'
+    'coral'
 }
 
 const calculateScore = () => {
@@ -130,23 +140,23 @@ const calculateScore = () => {
 }
 const moveSnake = () => {
   const head = { ...snake[0] }
-
-  if (direction === 'right') {
-    head.y++
-    lastDirection = 'right'
-  } else if (direction === 'left') {
-    head.y--
-    lastDirection = 'left'
-  } else if (direction === 'down') {
-    head.x++
-    lastDirection = 'down'
-  } else if (direction === 'up') {
-    head.x--
-    lastDirection = 'up'
-  } else {
-    direction = direction
+  if (!gameOver) {
+    if (direction === 'right') {
+      head.y++
+      lastDirection = 'right'
+    } else if (direction === 'left') {
+      head.y--
+      lastDirection = 'left'
+    } else if (direction === 'down') {
+      head.x++
+      lastDirection = 'down'
+    } else if (direction === 'up') {
+      head.x--
+      lastDirection = 'up'
+    } else {
+      direction = direction
+    }
   }
-
   snake.unshift(head)
   snake.pop()
   calculateScore()
@@ -169,8 +179,6 @@ const checkGameOver = () => {
     if (gameOverCombos.includes(headPosition)) {
       gameOver = true
       updateMessage()
-      //     clearInterval(gameLoop)
-      //     return
     }
   }
   for (let i = 1; i < snake.length; i++) {
@@ -188,8 +196,12 @@ const isFoodOnSnake = (x, y) => {
   }
   return false
 }
-
-function handleKeyPress(event) {
+const boardFrame = () => {
+  for (let i = 0; i < gameOverCombos.length; i++) {
+    document.getElementById(gameOverCombos[i]).style.color = 'blue'
+  }
+}
+const handleKeyPress = (event) => {
   if (event.code === 'ArrowRight' && lastDirection != 'left')
     direction = 'right'
   if (event.code === 'ArrowLeft' && lastDirection != 'right') direction = 'left'

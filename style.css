@@ -3,13 +3,14 @@
 }
 
 body {
-  background-color: lightgrey;
+  background-color: #a5f3ef;
   font-family: system-ui, sans-serif;
   min-height: 100dvh;
   margin: 0;
 }
 h1 {
   text-align: center;
+  color: #47007a;
 }
 header {
   display: flex;
@@ -30,11 +31,11 @@ footer {
   align-items: center;
 }
 #board {
-  width: 460px;
-  height: 460px;
-  border: 5px solid black;
+  width: 550px;
+  height: 550px;
+  /* border: 5px solid black; */
   text-align: center;
-  background-color: aliceblue;
+  background-color: #fde8af;
   display: flex;
   flex-wrap: wrap;
 }
@@ -43,5 +44,49 @@ footer {
   height: 50px;
 }
 .snakeClass {
-  background-color: rgb(73, 179, 87);
+  background-color: #1ac1b9;
+}
+
+[id='0-0'],
+[id='0-1'],
+[id='0-2'],
+[id='0-3'],
+[id='0-4'],
+[id='0-5'],
+[id='0-6'],
+[id='0-7'],
+[id='0-8'],
+[id='0-9'],
+[id='0-10'],
+[id='1-0'],
+[id='2-0'],
+[id='3-0'],
+[id='4-0'],
+[id='5-0'],
+[id='6-0'],
+[id='7-0'],
+[id='8-0'],
+[id='9-0'],
+[id='10-0'],
+[id='10-1'],
+[id='10-2'],
+[id='10-3'],
+[id='10-4'],
+[id='10-5'],
+[id='10-6'],
+[id='10-7'],
+[id='10-8'],
+[id='10-9'],
+[id='10-10'],
+[id='1-10'],
+[id='2-10'],
+[id='3-10'],
+[id='4-10'],
+[id='5-10'],
+[id='6-10'],
+[id='7-10'],
+[id='8-10'],
+[id='9-10'],
+[id='10-10'] {
+  background-color: #fac63885;
 }
