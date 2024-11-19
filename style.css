@@ -11,11 +11,23 @@ body {
 h1 {
   text-align: center;
   color: #47007a;
+  font-family: 'Fredoka';
+  font-size: 40px;
+  font-weight: 700;
+  margin: 15px 0 0 0;
+}
+p {
+  text-align: center;
+  color: #47007a;
+  font-family: 'Fredoka';
+  font-size: 20px;
+  font-weight: 500;
+  margin: 20px 140px;
 }
 header {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 main {
@@ -30,10 +42,30 @@ footer {
   justify-content: space-around;
   align-items: center;
 }
+a {
+  cursor: pointer;
+  background-color: #47007a;
+  color: #ffffff;
+  margin: 10px;
+  font-size: 20px;
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 500;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+a:hover {
+  background-color: #300052;
+  color: white;
+}
+a:active {
+  background-color: #300052;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  transform: translateY(4px);
+}
 #board {
   width: 550px;
   height: 550px;
-  /* border: 5px solid black; */
   text-align: center;
   background-color: #fde8af;
   display: flex;
