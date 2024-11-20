@@ -11,7 +11,9 @@ I chose this game because it brings back memories of my childhood when I used to
 
 ## Game Link
 
-> not ready yet
+[Click to play](https://bumpy-lamp.surge.sh/)
+
+> You can play the game through the above link
 
 ## Sound Library
 
