@@ -48,7 +48,6 @@ let food
 let gameOver
 let score
 let snake
-let gameStart
 let direction
 let lastDirection
 /*------------------------ Cached Element References ------------------------*/
@@ -62,7 +61,6 @@ const messageEl = document.querySelector('#message')
 const init = () => {
   board = []
   gameOver = false
-  gameStart = true
   score = 0
   direction = 'up'
   lastDirection = ''
