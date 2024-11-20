@@ -167,8 +167,6 @@ const moveSnake = () => {
 const updateMessage = () => {
   if (gameOver) {
     messageEl.textContent = 'Game Over!'
-  } else if (!gameStart) {
-    messageEl.textContent = 'Press any arrow key to start!'
   } else {
     messageEl.textContent = 'Game in progress...'
   }
@@ -204,7 +202,7 @@ const boardFrame = () => {
 }
 // const music = () => {
 const sound = new Howl({
-  src: ['https://assets.codepen.io/21542/howler-demo-bg-music.mp3'],
+  src: ['Eye of the Storm.mp3'],
   loop: true,
   volume: 0.5
 })
