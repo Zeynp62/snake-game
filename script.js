@@ -43,7 +43,6 @@ const gameOverCombos = [
   '10-10'
 ]
 /*-------------------------------- Variables --------------------------------*/
-let board
 let food
 let gameOver
 let score
@@ -59,7 +58,6 @@ const messageEl = document.querySelector('#message')
 /*-------------------------------- Functions --------------------------------*/
 
 const init = () => {
-  board = []
   gameOver = false
   score = 0
   direction = 'up'
@@ -73,13 +71,11 @@ const init = () => {
 }
 const generateMap = () => {
   for (let i = 0; i < 11; i++) {
-    board[i] = []
     for (let j = 0; j < 11; j++) {
       const newDivs = document.createElement('div')
       newDivs.classList.add('sqr')
       newDivs.id = `${i}-${j}`
       boardEl.appendChild(newDivs)
-      board[i][j] = newDivs
     }
   }
 }
