@@ -42,6 +42,12 @@ const gameOverCombos = [
   '9-10',
   '10-10'
 ]
+
+const sound = new Howl({
+  src: ['Eye of the Storm.mp3'],
+  loop: true,
+  volume: 0.5
+})
 /*-------------------------------- Variables --------------------------------*/
 let food
 let gameOver
@@ -63,7 +69,6 @@ const init = () => {
   direction = 'up'
   lastDirection = ''
   generateMap()
-  boardFrame()
   generateSnake()
   generateFood()
   updateMessage()
@@ -99,7 +104,7 @@ const render = () => {
     const snakePart = document.getElementById(`${part.x}-${part.y}`)
     snakePart.classList.add('snakeClass')
   })
-  checkGameOver()
+  isGameOver()
 }
 
 const generateFood = () => {
@@ -160,12 +165,13 @@ const moveSnake = () => {
 }
 const updateMessage = () => {
   if (gameOver) {
+    messageEl.style.color = 'red'
     messageEl.textContent = 'Game Over!'
   } else {
     messageEl.textContent = 'Game in progress...'
   }
 }
-const checkGameOver = () => {
+const isGameOver = () => {
   const head = snake[0]
   const headPosition = `${head.x}-${head.y}`
   for (let i = 0; i < gameOverCombos.length; i++) {
@@ -189,18 +195,6 @@ const isFoodOnSnake = (x, y) => {
   }
   return false
 }
-const boardFrame = () => {
-  for (let i = 0; i < gameOverCombos.length; i++) {
-    document.getElementById(gameOverCombos[i]).style.color = 'blue'
-  }
-}
-// const music = () => {
-const sound = new Howl({
-  src: ['Eye of the Storm.mp3'],
-  loop: true,
-  volume: 0.5
-})
-// }
 const handleKeyPress = (event) => {
   if (event.code === 'ArrowRight' && lastDirection != 'left')
     direction = 'right'

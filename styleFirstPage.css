@@ -26,6 +26,14 @@ p {
   font-weight: 700;
   margin: 15px 0 0 0;
 }
+#instruction {
+  text-align: center;
+  color: #47007a;
+  font-family: 'Fredoka';
+  font-size: 25px;
+  font-weight: 700;
+  margin: 15px 0 0 0;
+}
 a {
   cursor: pointer;
   background-color: #47007a;
